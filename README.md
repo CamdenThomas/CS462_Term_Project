@@ -1,6 +1,6 @@
 # Tro🧲ble
 
-**Design Document** — by Camden Thomas, Davis Agnigbakou
+**Design Document** — by Camden Thomas, Davis Agnigbakou, Rylan Clark, Minh Le, Parker Kuykendall
 
 <!-- TODO: insert logo here (rotate the magnet so it reads as a 'U') -->
 
@@ -16,7 +16,7 @@
   - [Target Audience](#target-audience)
 - [Concept](#concept)
   - [Gameplay Overview](#gameplay-overview)
-  - [Theme Interpretation (Sacrifice Is Strength)](#theme-interpretation-sacrifice-is-strength)
+  - [Theme Interpretation](#theme-interpretation)
   - [Primary Mechanics](#primary-mechanics)
   - [Secondary Mechanics](#secondary-mechanics)
 - [Level Design](#level-design)
@@ -81,7 +81,7 @@ In TroUble, the player grows from age 8 to 18 across three life stages, each mad
 
 Parents move around the house and watch the player, forcing them to decide when it is safe to sneak. The player's brother follows his own schedule around the house and starts out neutral. Depending on how the player treats him, he becomes an ally who distracts the parents and retrieves confiscated items, or an enemy who snitches.
 
-### Theme Interpretation (Sacrifice Is Strength)
+### Theme Interpretation
 
 Motto: **Sacrifice Is Strength**
 
@@ -200,15 +200,11 @@ The interface is themed like school supplies, using notebook paper, sticky notes
 
 #### Keyboard and Mouse
 
-| Action | Input |
-| --- | --- |
-| Move / Look | WASD / Mouse |
-| Sprint (fast but noisy) | Hold Shift |
-| Crouch (slow and quiet) | C / Ctrl |
-| Interact (tasks, pick up items, hide, doors) | E or Left Click |
-| Talk (opens brother menu when next to him) | E |
-| Inventory and stash | Tab |
-| Pause | Esc |
+- **Movement:** WASD to move and the mouse to look. Hold Shift to sprint (fast but noisy) or C/Ctrl to crouch (slow and quiet).
+- **Interact:** E or left click for tasks, picking up items, hiding, and doors.
+- **Talk:** E when standing next to the brother opens the brother menu.
+- **Inventory:** Tab opens the inventory and stash.
+- **Pause:** Esc.
 
 #### Gamepad
 
@@ -221,6 +217,8 @@ Not planned for the minimum viable product. Gamepad support is a stretch goal if
 | Davis Agnigbakou | Team Lead |
 | Camden Thomas | Backend |
 | Rylan Clark | Backend |
+| Minh Le |Design|
+| Parker Kuykendall | Backend/Music |
 
 > **TODO (remaining team members):** add your name and role.
 
@@ -233,13 +231,13 @@ Not planned for the minimum viable product. Gamepad support is a stretch goal if
 | Week | Dates | Goals | Milestone | Responsibilities |
 | :-: | :-: | --- | --- | --- |
 | 1 | Oct 5–11 | Submit the design document, set up the Unity project and repository, and greybox the house layout. | Design document submitted | |
-| 2 | Oct 12–18 | Player controller (move, crouch, sprint), camera, and interaction system. | | |
-| 3 | Oct 19–25 | Parent AI: schedules, patrols, vision cones, noise detection, and Suspicion. | | |
+| 2 | Oct 12–18 | Player controller (move, crouch, sprint), camera, and interaction system. | Player moves, crouches, and interacts in the greybox house | |
+| 3 | Oct 19–25 | Parent AI: schedules, patrols, vision cones, noise detection, and Suspicion. | One parent patrols and can spot the player | |
 | 4 | Oct 26–Nov 1 | Tasks, daily meters, week clock, and HUD. | Playable prototype (one Childhood week) | |
-| 5 | Nov 2–8 | Brother schedule, talk menu, and Brother Bond (including snitching). Contraband, stashes, and confiscation. | | |
-| 6 | Nov 9–15 | Life traits, report card, and stage transitions. | Alpha (Childhood stage complete) | |
-| 7 | Nov 16–22 | Early Teen stage (phones, full house) and an art pass on the house. | | |
-| 8 | Nov 23–29 | Late Teen stage (garage, night) and ending selection logic. Lighter load for Thanksgiving week. | | |
+| 5 | Nov 2–8 | Brother schedule, talk menu, and Brother Bond (including snitching). Contraband, stashes, and confiscation. | Brother, contraband, and stash systems working | |
+| 6 | Nov 9–15 | Life traits, report cards, and stage transitions. | Alpha (Childhood stage complete) | |
+| 7 | Nov 16–22 | Early Teen stage (phones, full house) and an art pass on the house. | Early Teen stage playable | |
+| 8 | Nov 23–29 | Late Teen stage (garage, night) and ending selection logic. Lighter load for Thanksgiving week. | Late Teen stage playable; ending logic working | |
 | 9 | Nov 30–Dec 6 | Ending screens and gallery, early endings, and adaptive audio integration. | Beta (content complete) | |
 | 10 | Dec 7–11 | Playtesting, bug fixes, menus and settings, and the itch.io page. | Final submission | |
 

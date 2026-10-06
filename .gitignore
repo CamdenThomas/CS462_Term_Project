@@ -42,3 +42,34 @@ crashlytics-build.properties
 # OS
 .DS_Store
 Thumbs.db
+
+# Large files live in the shared Google Drive folder, not Git (no Git LFS).
+# Assets/Project/DriveAssets/ is a mirror of Drive "TroUble/DriveAssets", .meta files included. See ASSETS.md.
+/[Aa]ssets/Project/DriveAssets/
+/[Aa]ssets/Project/DriveAssets.meta
+
+# Safety net: binaries (and their .meta) are never committed anywhere else in Assets/Project.
+# If one of these shows up as ignored, move it into DriveAssets/.
+/[Aa]ssets/Project/**/*.[Ff][Bb][Xx]
+/[Aa]ssets/Project/**/*.[Ff][Bb][Xx].meta
+/[Aa]ssets/Project/**/*.[Oo][Bb][Jj]
+/[Aa]ssets/Project/**/*.[Oo][Bb][Jj].meta
+/[Aa]ssets/Project/**/*.blend*
+/[Aa]ssets/Project/**/*.psd
+/[Aa]ssets/Project/**/*.psd.meta
+/[Aa]ssets/Project/**/*.png
+/[Aa]ssets/Project/**/*.png.meta
+/[Aa]ssets/Project/**/*.jpg
+/[Aa]ssets/Project/**/*.jpg.meta
+/[Aa]ssets/Project/**/*.tga
+/[Aa]ssets/Project/**/*.tga.meta
+/[Aa]ssets/Project/**/*.exr
+/[Aa]ssets/Project/**/*.exr.meta
+/[Aa]ssets/Project/**/*.wav
+/[Aa]ssets/Project/**/*.wav.meta
+/[Aa]ssets/Project/**/*.mp3
+/[Aa]ssets/Project/**/*.mp3.meta
+/[Aa]ssets/Project/**/*.ogg
+/[Aa]ssets/Project/**/*.ogg.meta
+/[Aa]ssets/Project/**/*.mp4
+/[Aa]ssets/Project/**/*.mp4.meta
