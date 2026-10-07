@@ -1,0 +1,21 @@
+{
+    "name": "TroUble.Core",
+    "rootNamespace": "TroUble.Core",
+    "references": [
+        "GUID:49c56bffb9f7d927299c9964a501299d",
+        "GUID:cff14c1c0ee6ff4798bf8a95e77b9b2f",
+        "GUID:b8e3f5b74f2124b22846d18264cf7ccf",
+        "GUID:194aad6c69da8db47bf4e2591db36897",
+        "GUID:950bbf6ce265eb2b99ae39d2c8f47101",
+        "GUID:b1260a8feff1a9b3896a050aa074ccc2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,10 +1,14 @@
 # TODO
 
 ## Camden
-- make Game/ProgressManager
 
+- EventChannel
+- VoidEventChannel
 
 ## Davis
 
+- Character Design
 
 ## Minh Le
+
+- UI Loading/Menus

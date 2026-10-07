@@ -1,0 +1,20 @@
+{
+    "name": "TroUble.AI",
+    "rootNamespace": "TroUble.AI",
+    "references": [
+        "GUID:49c56bffb9f7d927299c9964a501299d",
+        "GUID:cff14c1c0ee6ff4798bf8a95e77b9b2f",
+        "GUID:194aad6c69da8db47bf4e2591db36897",
+        "GUID:d071f8151eab9561d8f35f0acee20b4f",
+        "GUID:950bbf6ce265eb2b99ae39d2c8f47101"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

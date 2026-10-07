@@ -1,0 +1,23 @@
+{
+    "name": "TroUble.UI",
+    "rootNamespace": "TroUble.UI",
+    "references": [
+        "GUID:49c56bffb9f7d927299c9964a501299d",
+        "GUID:cff14c1c0ee6ff4798bf8a95e77b9b2f",
+        "GUID:b8e3f5b74f2124b22846d18264cf7ccf",
+        "GUID:194aad6c69da8db47bf4e2591db36897",
+        "GUID:28a9a1ea6da127f758a80a0076bd35ce",
+        "GUID:b1260a8feff1a9b3896a050aa074ccc2",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:2bafac87e7f4b9b418d9448d219b01ab"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
