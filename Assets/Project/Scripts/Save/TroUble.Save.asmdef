@@ -1,0 +1,16 @@
+{
+    "name": "TroUble.Save",
+    "rootNamespace": "TroUble.Save",
+    "references": [
+        "GUID:cff14c1c0ee6ff4798bf8a95e77b9b2f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
