@@ -1,0 +1,21 @@
+# Normalize line endings
+* text=auto
+
+# Code
+*.cs        text diff=csharp eol=lf
+*.shader    text eol=lf
+*.hlsl      text eol=lf
+*.asmdef    text eol=lf
+*.json      text eol=lf
+
+# Unity YAML: use Unity SmartMerge (configure the driver once per machine)
+*.unity         merge=unityyamlmerge eol=lf
+*.prefab        merge=unityyamlmerge eol=lf
+*.asset         merge=unityyamlmerge eol=lf
+*.mat           merge=unityyamlmerge eol=lf
+*.anim          merge=unityyamlmerge eol=lf
+*.controller    merge=unityyamlmerge eol=lf
+*.overrideController merge=unityyamlmerge eol=lf
+*.physicMaterial merge=unityyamlmerge eol=lf
+*.meta          merge=unityyamlmerge eol=lf
+*.inputactions  text eol=lf

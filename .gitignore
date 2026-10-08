@@ -10,7 +10,10 @@
 /[Rr]ecordings/
 
 # IDE / generated project files
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/extensions.json
 .vs/
 .idea/
 *.csproj
