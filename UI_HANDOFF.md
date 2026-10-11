@@ -55,6 +55,7 @@ Menu designs for TroUble (Trouble Magnet), made in Figma. This note lives in Git
 |`UI\_Ref\_Options\_Audio.png`|Options, Audio tab|
 |`UI\_Ref\_Options\_Controls.png`|Options, Controls tab|
 |`UI\_Ref\_Options\_Display.png`|Options, Display tab|
+|`UI\_Ref\_Pause.png`|Pause menu|
 
 > The `UI/` images were uploaded without `.meta` files. Whoever imports them into Unity should upload the images \*\*and\*\* their `.meta` files back to Drive, as `ASSETS.md` describes.
 
@@ -70,6 +71,11 @@ Main menu
   |- Gallery   -> (not designed yet)
   |- Quit      -> Quit confirmation popup
 BACK on every sub-screen returns to the Main menu.
+Pause menu (opened with Esc during play)
+  |- Resume       -> closes the menu and returns to the game
+  |- Save Game    -> saves the current game
+  |- Options      -> Options screen (BACK returns to the pause menu)
+  |- Quit to Menu -> confirmation popup -> Main menu
 ```
 
 \---
@@ -107,6 +113,11 @@ Dashed outline, text "EMPTY SLOT". On the Load Game screen it is dimmed and show
 
 Sliders, switches, dropdowns, key caps, tabs, the delete button and the popup buttons. Read their sizes and colors from the reference pictures or from Figma.
 
+### Pause menu
+Uses the Menu Button component. Items: RESUME, SAVE GAME, OPTIONS, QUIT TO MENU.
+Title "PAUSED" with a yellow pause icon. Below it, a line showing the current stage and week
+(for example "CHILDHOOD | WEEK 3"). The game scene is dimmed behind it, darker on the left.
+
 \---
 
 ## 5\. Behavior rules
@@ -118,12 +129,14 @@ Sliders, switches, dropdowns, key caps, tabs, the delete button and the popup bu
 * Deleting a save asks for confirmation.
 * Options tabs (Audio, Controls, Display) switch the panel content. The selected tab is yellow with an underline.
 * BACK always returns to the Main menu.
+* Esc opens the pause menu during play, and Esc again resumes.
+* BACK on the Options screen returns to the screen the player came from: the pause menu if opened from there, otherwise the main menu.
+* Quit to Menu asks for confirmation first ("Progress since your last save will be lost").
 
 \---
 
 ## 6\. Not designed yet
 
-* Pause menu
 * In-game HUD and the brother menu
 * Report card screen
 * Ending screens
@@ -133,4 +146,6 @@ Sliders, switches, dropdowns, key caps, tabs, the delete button and the popup bu
 * **Key bindings** in the Controls tab (WASD, Shift, Ctrl, E, Esc) are placeholders.
 * **Overwrite and Quit popups** are drafts, and their text can change.
 * **Gamepad support** is a stretch goal, so no gamepad layout is shown.
+* Can the game be saved mid-week, or only at week boundaries? If only at week boundaries, remove SAVE GAME from the pause menu.
+* The Return to Menu popup copies the Quit popup layout with different text. No separate design was made.
 
