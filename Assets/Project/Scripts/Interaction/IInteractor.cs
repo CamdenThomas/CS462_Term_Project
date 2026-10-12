@@ -7,5 +7,9 @@ namespace TroUble.Interaction {
     public interface IInteractor {
         Transform Transform { get; }
         IItemHolder Items { get; }
+        bool IsHidden { get; }
+
+        /// <summary>Going in, spot is where the eyes go. Coming out, spot is where the feet go.</summary>
+        void SetHidden( bool hidden, Transform spot );
     }
 }

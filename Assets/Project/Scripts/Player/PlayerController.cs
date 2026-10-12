@@ -27,6 +27,8 @@ namespace TroUble.Player {
         private Vector2 moveInput;
         private bool sprintHeld;
         private bool crouchHeld;
+        private bool crouched;
+        private bool hidden;
         private float verticalSpeed;
 
         public MoveMode Mode { get; private set; }
@@ -53,17 +55,21 @@ namespace TroUble.Player {
 
         private void Update() {
             UpdateMode();
+            if ( hidden ) { return; }
             ApplyMovement( Time.deltaTime );
         }
 
         private void UpdateMode() {
-            MoveMode previous = Mode;
+            // Tucked into a hiding spot: no walking and no standing up or crouching until the player climbs out.
+            if ( hidden ) { Mode = MoveMode.Hidden; return; }
+
             if ( crouchHeld ) { Mode = MoveMode.Crouch; }
             else if ( sprintHeld && moveInput.y > 0f ) { Mode = MoveMode.Sprint; }
             else { Mode = MoveMode.Walk; }
 
             bool crouching = Mode == MoveMode.Crouch;
-            if ( crouching != ( previous == MoveMode.Crouch ) ) {
+            if ( crouching != crouched ) {
+                crouched = crouching;
                 body.height = crouching ? crouchHeight : standHeight;
                 body.center = new Vector3( 0f, body.height / 2f, 0f );
                 look.SetEyeHeight( crouching ? crouchEye : standEye );
@@ -88,6 +94,23 @@ namespace TroUble.Player {
 
             Velocity = direction * speed + Vector3.up * verticalSpeed;
             body.Move( Velocity * dt );
+        }
+
+        /// <summary>
+        /// Tuck into a hiding spot or climb out of one. Going in, spot is where the eyes go and which way they face.
+        /// Coming out, spot is where the feet go.
+        /// </summary>
+        public void SetHidden( bool hide, Transform spot ) {
+            hidden = hide;
+            // The body is switched off while hidden, so it can sit inside a vent or a box without bumping anything.
+            body.enabled = false;
+            float eye = crouched ? crouchEye : standEye;
+            transform.position = hide ? spot.position - Vector3.up * eye : spot.position;
+            transform.rotation = Quaternion.Euler( 0f, spot.eulerAngles.y, 0f );
+            look.SetPitch( 0f );
+            body.enabled = !hide;
+            verticalSpeed = 0f;
+            Velocity = Vector3.zero;
         }
 
         /// <summary>Move the player instantly. CharacterController ignores plain position changes while enabled.</summary>

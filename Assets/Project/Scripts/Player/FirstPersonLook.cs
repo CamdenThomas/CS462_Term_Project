@@ -29,5 +29,11 @@ namespace TroUble.Player {
         }
 
         public void SetEyeHeight( float height ) { pivot.localPosition = new Vector3( 0f, height, 0f ); }
+
+        /// <summary>Look up or down by this many degrees right away (0 is level).</summary>
+        public void SetPitch( float degrees ) {
+            pitch = Mathf.Clamp( degrees, -pitchLimit, pitchLimit );
+            pivot.localRotation = Quaternion.Euler( pitch, 0f, 0f );
+        }
     }
 }

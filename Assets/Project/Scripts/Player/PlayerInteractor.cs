@@ -10,6 +10,7 @@ namespace TroUble.Player {
     /// </summary>
     public class PlayerInteractor : MonoBehaviour, IInteractor {
         [SerializeField] private InputReader input;
+        [SerializeField] private PlayerController controller;
         [SerializeField] private Inventory inventory;
         [SerializeField] private Camera cam;
         [SerializeField] private float reach = 1.6f;
@@ -18,11 +19,13 @@ namespace TroUble.Player {
         [SerializeField] private FloatChannel interactProgress;
 
         private IInteractable focused;
+        private IInteractable hideSpot;
         private bool holding;
         private float holdTimer;
 
         public Transform Transform => transform;
         public IItemHolder Items => inventory;
+        public bool IsHidden { get; private set; }
         public IInteractable Focused => focused;
 
         private void OnEnable() {
@@ -43,6 +46,9 @@ namespace TroUble.Player {
         }
 
         private IInteractable FindFocus() {
+            // Tucked away, the only thing in reach is the spot itself, wherever the player is looking.
+            if ( IsHidden ) { return hideSpot; }
+
             Transform eye = cam.transform;
             if ( !Physics.Raycast( eye.position, eye.forward, out RaycastHit hit, reach, mask ) ) { return null; }
 
@@ -95,9 +101,17 @@ namespace TroUble.Player {
 
         private void Use( IInteractable target ) {
             target.Interact( this );
+            hideSpot = IsHidden ? target : null;
             // Using something can change its prompt ("Open" becomes "Close") or remove it (a pickup),
             // so look again and tell the UI what is in front of the player now.
             SetFocus( FindFocus() );
+        }
+
+        // Called by a HidingSpot, on the way in and on the way out (including when it pushes the player out).
+        public void SetHidden( bool hidden, Transform spot ) {
+            IsHidden = hidden;
+            if ( !hidden ) { hideSpot = null; }
+            controller.SetHidden( hidden, spot );
         }
     }
 }

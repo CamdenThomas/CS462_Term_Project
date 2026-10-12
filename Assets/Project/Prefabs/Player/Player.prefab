@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: TroUble.Player::TroUble.Player.PlayerInteractor
   input: {fileID: 11400000, guid: d7c1ae4acf964c54b312f2a4f2f0c2b2, type: 2}
+  controller: {fileID: 3297617052044798162}
   inventory: {fileID: 1728747960874959223}
   cam: {fileID: 6699940672913323569}
   reach: 1.6
