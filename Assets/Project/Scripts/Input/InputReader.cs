@@ -16,6 +16,7 @@ namespace TroUble.Input {
         public event Action<bool> CrouchChanged;
         public event Action InteractStarted;
         public event Action InteractCanceled;
+        public event Action RestartPressed;
 
         private void OnEnable() {
             Setup();
@@ -65,6 +66,10 @@ namespace TroUble.Input {
         public void OnInteract( InputAction.CallbackContext context ) {
             if ( context.started ) { InteractStarted?.Invoke(); }
             else if ( context.canceled ) { InteractCanceled?.Invoke(); }
+        }
+
+        public void OnRestart( InputAction.CallbackContext context ) {
+            if ( context.started ) { RestartPressed?.Invoke(); }
         }
 
         // In the input asset but not used by the game. The interface still requires them.

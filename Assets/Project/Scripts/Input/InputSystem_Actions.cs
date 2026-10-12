@@ -183,6 +183,16 @@ namespace TroUble.Input
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""0a27ac4e-e5f5-4570-9af7-5b8370e4056e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -568,6 +578,17 @@ namespace TroUble.Input
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be3155bd-b8fa-4dcf-8936-86286ebbf298"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Restart"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1174,6 +1195,7 @@ namespace TroUble.Input
             m_Player_Previous = m_Player.FindAction("Previous", throwIfNotFound: true);
             m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
             m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+            m_Player_Restart = m_Player.FindAction("Restart", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1276,6 +1298,7 @@ namespace TroUble.Input
         private readonly InputAction m_Player_Previous;
         private readonly InputAction m_Player_Next;
         private readonly InputAction m_Player_Sprint;
+        private readonly InputAction m_Player_Restart;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1323,6 +1346,10 @@ namespace TroUble.Input
             /// Provides access to the underlying input action "Player/Sprint".
             /// </summary>
             public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Restart".
+            /// </summary>
+            public InputAction @Restart => m_Wrapper.m_Player_Restart;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1376,6 +1403,9 @@ namespace TroUble.Input
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
+                @Restart.started += instance.OnRestart;
+                @Restart.performed += instance.OnRestart;
+                @Restart.canceled += instance.OnRestart;
             }
 
             /// <summary>
@@ -1414,6 +1444,9 @@ namespace TroUble.Input
                 @Sprint.started -= instance.OnSprint;
                 @Sprint.performed -= instance.OnSprint;
                 @Sprint.canceled -= instance.OnSprint;
+                @Restart.started -= instance.OnRestart;
+                @Restart.performed -= instance.OnRestart;
+                @Restart.canceled -= instance.OnRestart;
             }
 
             /// <summary>
@@ -1777,6 +1810,13 @@ namespace TroUble.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnSprint(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Restart" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnRestart(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
