@@ -92,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: TroUble.Player::TroUble.Player.PlayerController
   input: {fileID: 11400000, guid: d7c1ae4acf964c54b312f2a4f2f0c2b2, type: 2}
   look: {fileID: 8535089900840513361}
+  anchor: {fileID: 11400000, guid: aea1ee3f0921148c5bbe085adf457964, type: 2}
   walkSpeed: 2.5
   sprintSpeed: 4.5
   crouchSpeed: 1.2

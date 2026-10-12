@@ -10,6 +10,7 @@ namespace TroUble.Player {
     public class PlayerController : MonoBehaviour {
         [SerializeField] private InputReader input;
         [SerializeField] private FirstPersonLook look;
+        [SerializeField] private PlayerAnchor anchor;
 
         [Header( "Speeds (m/s)" )]
         [SerializeField] private float walkSpeed = 2.5f;
@@ -40,12 +41,14 @@ namespace TroUble.Player {
             input.Move += OnMove;
             input.SprintChanged += OnSprint;
             input.CrouchChanged += OnCrouch;
+            anchor.Set( this, GetComponent<PlayerInteractor>(), GetComponent<Inventory>() );
         }
 
         private void OnDisable() {
             input.Move -= OnMove;
             input.SprintChanged -= OnSprint;
             input.CrouchChanged -= OnCrouch;
+            anchor.Clear();
         }
 
         // Input can arrive at any moment; just remember it. Movement happens once per frame in Update.

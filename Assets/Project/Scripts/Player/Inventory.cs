@@ -29,5 +29,13 @@ namespace TroUble.Player {
         }
 
         public bool Has( ItemData item ) { return items.Contains( item ); }
+
+        /// <summary>The first thing being carried that the player isn't allowed to have, or null.</summary>
+        public ItemData FirstContraband() {
+            foreach ( ItemData item in items ) {
+                if ( item.IsContraband ) { return item; }
+            }
+            return null;
+        }
     }
 }

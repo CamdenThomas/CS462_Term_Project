@@ -20,12 +20,19 @@ namespace TroUble.Player {
 
         private IInteractable focused;
         private IInteractable hideSpot;
+        private bool lookingAtOffLimits;
         private bool holding;
         private float holdTimer;
 
         public Transform Transform => transform;
         public IItemHolder Items => inventory;
         public bool IsHidden { get; private set; }
+
+        /// <summary>
+        /// True while the player is doing something a parent would mind: looking at something off limits from
+        /// within reach, or carrying contraband. Just being around the house is fine.
+        /// </summary>
+        public bool IsMisbehaving => lookingAtOffLimits || inventory.FirstContraband() != null;
         public IInteractable Focused => focused;
 
         private void OnEnable() {
@@ -46,11 +53,16 @@ namespace TroUble.Player {
         }
 
         private IInteractable FindFocus() {
+            lookingAtOffLimits = false;
+
             // Tucked away, the only thing in reach is the spot itself, wherever the player is looking.
             if ( IsHidden ) { return hideSpot; }
 
             Transform eye = cam.transform;
             if ( !Physics.Raycast( eye.position, eye.forward, out RaycastHit hit, reach, mask ) ) { return null; }
+
+            // Off-limits places count even where there is nothing to press E on, like the inside of a cabinet.
+            lookingAtOffLimits = hit.collider.GetComponentInParent<OffLimits>() != null;
 
             // The collider is often on a child (a door's panel), so look up the hierarchy for the script.
             IInteractable target = hit.collider.GetComponentInParent<IInteractable>();

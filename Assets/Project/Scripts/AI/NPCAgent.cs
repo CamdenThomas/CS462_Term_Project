@@ -24,6 +24,9 @@ namespace TroUble.AI {
             nav.SetDestination( target );
         }
 
+        /// <summary>Stand still right here. GoTo starts her walking again.</summary>
+        public void Stop() { nav.isStopped = true; }
+
         /// <summary>Turn on the spot toward a direction, by at most this many degrees.</summary>
         public void Face( Vector3 direction, float maxDegrees ) {
             direction.y = 0f;
