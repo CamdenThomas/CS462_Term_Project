@@ -10,6 +10,7 @@ namespace TroUble.Player {
     /// </summary>
     public class PlayerInteractor : MonoBehaviour, IInteractor {
         [SerializeField] private InputReader input;
+        [SerializeField] private Inventory inventory;
         [SerializeField] private Camera cam;
         [SerializeField] private float reach = 1.6f;
         [SerializeField] private LayerMask mask;
@@ -21,6 +22,7 @@ namespace TroUble.Player {
         private float holdTimer;
 
         public Transform Transform => transform;
+        public IItemHolder Items => inventory;
         public IInteractable Focused => focused;
 
         private void OnEnable() {
@@ -93,8 +95,9 @@ namespace TroUble.Player {
 
         private void Use( IInteractable target ) {
             target.Interact( this );
-            // Using something can change its prompt ("Open" becomes "Close"), so tell the UI again.
-            RaiseFocus();
+            // Using something can change its prompt ("Open" becomes "Close") or remove it (a pickup),
+            // so look again and tell the UI what is in front of the player now.
+            SetFocus( FindFocus() );
         }
     }
 }

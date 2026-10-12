@@ -6,5 +6,6 @@ namespace TroUble.Interaction {
     /// </summary>
     public interface IInteractor {
         Transform Transform { get; }
+        IItemHolder Items { get; }
     }
 }

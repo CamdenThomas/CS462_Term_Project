@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8535089900840513361}
   - component: {fileID: 3297617052044798162}
   - component: {fileID: 5599500134781009884}
+  - component: {fileID: 1728747960874959223}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -112,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: TroUble.Player::TroUble.Player.PlayerInteractor
   input: {fileID: 11400000, guid: d7c1ae4acf964c54b312f2a4f2f0c2b2, type: 2}
+  inventory: {fileID: 1728747960874959223}
   cam: {fileID: 6699940672913323569}
   reach: 1.6
   mask:
@@ -119,6 +121,21 @@ MonoBehaviour:
     m_Bits: 129
   focusChanged: {fileID: 11400000, guid: 1337cd280d5b34ea2a55b5a6f08cdb5d, type: 2}
   interactProgress: {fileID: 11400000, guid: ee1896c654c844422be60b195e4f33a6, type: 2}
+--- !u!114 &1728747960874959223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234941059155428317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20cfe6835386438f92e0fa3cdd6180f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TroUble.Player::TroUble.Player.Inventory
+  capacity: 4
+  inventoryChanged: {fileID: 11400000, guid: 09883ba6dd5d343c2b3b8be34da66482, type: 2}
+  items: []
 --- !u!1 &469485166894693031
 GameObject:
   m_ObjectHideFlags: 0
