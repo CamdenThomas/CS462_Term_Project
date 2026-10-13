@@ -7,9 +7,9 @@ public class SwitchToggle : MonoBehaviour
 {
     public Image track;
     public RectTransform knob;
-    public Color onColor  = new Color(0.976f, 0.745f, 0.227f); // F9BE3A
-    public Color offColor = new Color(0.17f, 0.18f, 0.36f);    // 2B2D5B
-    public float travel = 26f;   // how far the knob moves from the center
+    public Color onColor  = new Color(0.976f, 0.745f, 0.227f);
+    public Color offColor = new Color(0.17f, 0.18f, 0.36f);
+    public float travel = 26f;
     public float speed = 14f;
 
     Toggle toggle;
@@ -23,7 +23,7 @@ public class SwitchToggle : MonoBehaviour
 
     void OnEnable()
     {
-        // snap to current state with no animation
+
         float x = toggle.isOn ? travel : -travel;
         knob.anchoredPosition = new Vector2(x, knob.anchoredPosition.y);
         track.color = toggle.isOn ? onColor : offColor;
