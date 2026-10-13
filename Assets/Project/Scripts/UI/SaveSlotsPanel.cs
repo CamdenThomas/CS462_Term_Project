@@ -8,24 +8,12 @@ public class SaveSlotsPanel : MonoBehaviour
     public TMP_Text title;
     public SlotCard[] cards;
     public GameObject overwritePopup;   
-
     [Header("Game")]
     public string gameSceneName = "House";
 
     // 0 = New Game, 1 = Load Game
     int mode;
     int pendingSlot;
-
-    class FakeSave { public string name, detail, time; }
-    FakeSave[] saves = new FakeSave[3]
-    {
-        new FakeSave {
-            name = "CHILDHOOD",
-            detail = "Week 3  |  Suspicion 40%",
-            time = "Playtime 1h24m  |  Saved Oct 13, 2026" },
-        null,
-        null
-    };
 
     void Awake()
     {
@@ -49,12 +37,18 @@ public class SaveSlotsPanel : MonoBehaviour
     {
         for (int i = 0; i < cards.Length; i++)
         {
-            var save = saves[i];
+            SlotData d = SlotSaves.Load(i);
             var button = cards[i].GetComponent<Button>();
 
-            if (save != null)
+            if (d != null)
             {
-                cards[i].SetFilled(save.name, save.detail, save.time);
+                int hours = (int)(d.playSeconds / 3600f);
+                int minutes = ((int)(d.playSeconds / 60f)) % 60;
+
+                cards[i].SetFilled(
+                    d.stageName,
+                    "Week " + d.week + "  |  Suspicion " + d.suspicion + "%",
+                    "Playtime " + hours + "h" + minutes.ToString("00") + "m  |  Saved " + d.savedAt);
                 button.interactable = true;
             }
             else
@@ -68,15 +62,15 @@ public class SaveSlotsPanel : MonoBehaviour
 
     void OnSlotClicked(int slot)
     {
-        bool filled = saves[slot] != null;
+        bool filled = SlotSaves.Exists(slot);
 
         if (mode == 1)
         {
-            StartGame(slot);
+            StartGame(slot, false);
         }
         else if (!filled)
         {
-            StartGame(slot);
+            StartGame(slot, true);
         }
         else
         {
@@ -85,17 +79,18 @@ public class SaveSlotsPanel : MonoBehaviour
         }
     }
 
-    // Called by the Overwrite button
     public void ConfirmOverwrite()
     {
         if (overwritePopup != null) overwritePopup.SetActive(false);
-        StartGame(pendingSlot);
+        StartGame(pendingSlot, true);
     }
 
-    void StartGame(int slot)
+    void StartGame(int slot, bool isNewGame)
     {
+        if (isNewGame) SlotSaves.CreateNew(slot);
+
         PlayerPrefs.SetInt("ActiveSlot", slot);
-        PlayerPrefs.SetInt("LoadMode", mode);
+        PlayerPrefs.SetInt("LoadMode", isNewGame ? 0 : 1);
         Time.timeScale = 1f;
         SceneManager.LoadScene(gameSceneName);
     }
