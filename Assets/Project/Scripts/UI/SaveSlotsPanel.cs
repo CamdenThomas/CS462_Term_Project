@@ -1,14 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class SaveSlotsPanel : MonoBehaviour
 {
     public TMP_Text title;
     public SlotCard[] cards;
-    public GameObject overwritePopup;
+    public GameObject overwritePopup;   
 
+    [Header("Game")]
+    public string gameSceneName = "House";
 
+    // 0 = New Game, 1 = Load Game
     int mode;
     int pendingSlot;
 
@@ -68,11 +72,11 @@ public class SaveSlotsPanel : MonoBehaviour
 
         if (mode == 1)
         {
-            Debug.Log("LOAD game from slot " + (slot + 1));
+            StartGame(slot);
         }
         else if (!filled)
         {
-            Debug.Log("START new game in slot " + (slot + 1));
+            StartGame(slot);
         }
         else
         {
@@ -81,9 +85,18 @@ public class SaveSlotsPanel : MonoBehaviour
         }
     }
 
+    // Called by the Overwrite button
     public void ConfirmOverwrite()
     {
         if (overwritePopup != null) overwritePopup.SetActive(false);
-        Debug.Log("OVERWRITE slot " + (pendingSlot + 1) + " and start new game");
+        StartGame(pendingSlot);
+    }
+
+    void StartGame(int slot)
+    {
+        PlayerPrefs.SetInt("ActiveSlot", slot);
+        PlayerPrefs.SetInt("LoadMode", mode);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(gameSceneName);
     }
 }
