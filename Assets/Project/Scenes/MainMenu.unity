@@ -5917,6 +5917,7 @@ MonoBehaviour:
   - {fileID: 1151440500}
   - {fileID: 1777563728}
   overwritePopup: {fileID: 74898679}
+  gameSceneName: House
 --- !u!1 &895521603
 GameObject:
   m_ObjectHideFlags: 0
@@ -13790,7 +13791,7 @@ GameObject:
   - component: {fileID: 1708240015}
   - component: {fileID: 1708240018}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Panel_Settings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
