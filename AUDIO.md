@@ -1,6 +1,6 @@
 # Music
 
-Music files are in `Assets/Project/Audio/Music`. `MusicPlayer` (in `Scripts/Audio`) spawns itself on Play from `Audio/Resources/MusicPlayer.prefab`, so there's nothing to place in a scene.
+Music files are in `Assets/Project/DriveAssets/Music` (from the team Drive, see ASSETS.md). `MusicPlayer` (in `Scripts/Audio`) spawns itself on Play from `Audio/Resources/MusicPlayer.prefab`, so there's nothing to place in a scene.
 
 - **Menu:** sneaky, playful theme
 - **Gameplay:** one theme per stage: toy piano (Childhood), lo-fi guitar (Early Teen), night synth (Late Teen)
