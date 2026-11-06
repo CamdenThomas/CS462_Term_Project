@@ -27,6 +27,7 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
+        if (ReportCard.IsOpen || ReportCard.JustClosed) return;
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (settingsPanel != null && settingsPanel.activeSelf) CloseSettings();
