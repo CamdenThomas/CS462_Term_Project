@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -10,19 +9,22 @@ public class PauseMenu : MonoBehaviour
     public GameObject dim;
     public string menuSceneName = "MainMenu";
 
-    [Header("Freeze the player while paused")]
-    public GameObject player;
-
     bool paused;
     CursorLockMode previousLock;
     bool previousVisible;
-    readonly List<Behaviour> frozen = new List<Behaviour>();
 
     void Awake()
     {
         pausePanel.SetActive(false);
         if (settingsPanel != null) settingsPanel.SetActive(false);
         if (dim != null) dim.SetActive(false);
+    }
+
+    void OnDestroy()
+    {
+        // The scene can be unloaded while paused (restart with R, quit to menu). GameFreeze is static and
+        // outlives this object, so let go of our freeze or the next pause in the new scene would not work.
+        if (paused) GameFreeze.Unfreeze(this);
     }
 
     void Update()
@@ -38,12 +40,12 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
+        if (paused) return;
         paused = true;
         previousLock = Cursor.lockState;
         previousVisible = Cursor.visible;
 
-        Time.timeScale = 0f;
-        FreezeInput();
+        GameFreeze.Freeze(this);
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -53,9 +55,9 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        if (!paused) return;
         paused = false;
-        Time.timeScale = 1f;
-        UnfreezeInput();
+        GameFreeze.Unfreeze(this);
 
         Cursor.lockState = previousLock;
         Cursor.visible = previousVisible;
@@ -79,42 +81,14 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitToMenu()
     {
+        if (paused)
+        {
+            paused = false;
+            GameFreeze.Unfreeze(this);
+        }
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         SceneManager.LoadScene(menuSceneName);
-    }
-
-
-    void FreezeInput()
-    {
-        if (player == null) player = GameObject.FindWithTag("Player");
-
-        if (player != null) FreezeObject(player, true);
-        if (Camera.main != null) FreezeObject(Camera.main.gameObject, false);
-    }
-
-    void FreezeObject(GameObject go, bool includeChildren)
-    {
-        Behaviour[] list = includeChildren
-            ? go.GetComponentsInChildren<Behaviour>(false)
-            : go.GetComponents<Behaviour>();
-
-        foreach (var b in list)
-        {
-            if (b == null || !b.enabled) continue;
-            if (b is Camera || b is AudioListener || b is AudioSource ||
-                b is Light || b is Canvas) continue;
-
-            b.enabled = false;
-            frozen.Add(b);
-        }
-    }
-
-    void UnfreezeInput()
-    {
-        foreach (var b in frozen)
-            if (b != null) b.enabled = true;
-        frozen.Clear();
     }
 }

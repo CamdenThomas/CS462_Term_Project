@@ -34,7 +34,7 @@ public class ReportCard : MonoBehaviour
         if (Instance == this)
         {
             Instance = null;
-            if (IsOpen) GameFreeze.Unfreeze();
+            if (IsOpen) GameFreeze.Unfreeze(this);
             IsOpen = false;
         }
     }
@@ -70,7 +70,7 @@ public class ReportCard : MonoBehaviour
             savedVisible = Cursor.visible;
         }
 
-        GameFreeze.Freeze(freezeObjects);
+        GameFreeze.Freeze(this, freezeObjects);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         IsOpen = true;
@@ -81,7 +81,7 @@ public class ReportCard : MonoBehaviour
     {
         if (IsOpen)
         {
-            GameFreeze.Unfreeze();
+            GameFreeze.Unfreeze(this);
             Cursor.lockState = savedLock;
             Cursor.visible = savedVisible;
         }
