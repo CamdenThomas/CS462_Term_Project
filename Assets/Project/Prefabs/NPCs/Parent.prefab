@@ -435,6 +435,7 @@ MonoBehaviour:
   nearSpotTime: 0.5
   farSpotTime: 2.5
   forgetTime: 3
+  watchedHideWindow: 0.5
 --- !u!1 &2429989736955677310
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,9 +819,9 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 1, g: 0.45, b: 0.12, a: 1}
-  m_Intensity: 9
-  m_Range: 7
+  m_Color: {r: 1, g: 0.8, b: 0.6, a: 1}
+  m_Intensity: 2.2
+  m_Range: 5.5
   m_SpotAngle: 100
   m_InnerSpotAngle: 92
   m_CookieSize2D: {x: 0.5, y: 0.5}

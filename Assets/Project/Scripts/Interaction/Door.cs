@@ -14,9 +14,12 @@ namespace TroUble.Interaction {
         [SerializeField] private float holdTime = 0f;
         [SerializeField] private bool isOpen;
         [SerializeField] private bool isLocked;
+        [Tooltip( "Start a closed door partly open (left ajar). It still counts as closed: using it swings it the rest of the way open." )]
+        [SerializeField, Range( 0f, 1f )] private float startAjar = 0f;
 
         private Quaternion closedRotation;
         private float swing;    // 0 = closed, 1 = fully open
+        private float restSwing;    // where "closed" sits: ajar until someone first uses the door
 
         public string Prompt => isOpen ? closePrompt : openPrompt;
         public float HoldTime => holdTime;
@@ -25,12 +28,13 @@ namespace TroUble.Interaction {
         private void Awake() {
             if ( hinge == null ) { hinge = transform; }
             closedRotation = hinge.localRotation;
-            swing = isOpen ? 1f : 0f;
+            restSwing = startAjar;
+            swing = isOpen ? 1f : restSwing;
             ApplySwing();
         }
 
         private void Update() {
-            float target = isOpen ? 1f : 0f;
+            float target = isOpen ? 1f : restSwing;
             if ( Mathf.Approximately( swing, target ) ) { return; }
             swing = Mathf.MoveTowards( swing, target, Time.deltaTime / swingTime );
             ApplySwing();
@@ -44,7 +48,10 @@ namespace TroUble.Interaction {
 
         public bool CanInteract( IInteractor who ) { return !isLocked; }
 
-        public void Interact( IInteractor who ) { isOpen = !isOpen; }
+        public void Interact( IInteractor who ) {
+            isOpen = !isOpen;
+            restSwing = 0f;
+        }
 
         public void SetLocked( bool locked ) { isLocked = locked; }
     }

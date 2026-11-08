@@ -1,0 +1,20 @@
+{
+    "name": "TroUble.Environment",
+    "rootNamespace": "TroUble.Environment",
+    "references": [
+        "GUID:49c56bffb9f7d927299c9964a501299d",
+        "GUID:cff14c1c0ee6ff4798bf8a95e77b9b2f",
+        "GUID:d071f8151eab9561d8f35f0acee20b4f",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.Universal.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
