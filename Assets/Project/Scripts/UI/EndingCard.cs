@@ -8,11 +8,12 @@ public class EndingCard : MonoBehaviour
     public Image thumb;
     public TMP_Text nameLabel;
 
-    public void Setup(string endingName, Sprite sprite, bool unlocked)
+    public void Setup(string endingName, string hint, Sprite sprite, bool unlocked)
     {
-        lockedView.SetActive(!unlocked);
-        thumb.gameObject.SetActive(unlocked);
+        if (lockedView != null) lockedView.SetActive(false);
         if (sprite != null) thumb.sprite = sprite;
-        nameLabel.text = unlocked ? endingName : "???";
+        thumb.gameObject.SetActive(true);
+        thumb.color = unlocked ? Color.white : Color.black;
+        nameLabel.text = unlocked ? endingName : hint;
     }
 }

@@ -7,6 +7,7 @@ public class GalleryPanel : MonoBehaviour
     {
         public string endingName;
         public Sprite sprite;
+        public string hint;
     }
 
     public EndingCard[] cards;
@@ -20,8 +21,9 @@ public class GalleryPanel : MonoBehaviour
         {
             EndingInfo info = i < endings.Length ? endings[i] : null;
             string label = info != null ? info.endingName : "Ending " + (i + 1);
+            string hint = info != null ? info.hint : "";
             Sprite sprite = info != null ? info.sprite : null;
-            cards[i].Setup(label, sprite, EndingSaves.IsUnlocked(i));
+            cards[i].Setup(label, hint, sprite, EndingSaves.IsUnlocked(i));
         }
     }
 }

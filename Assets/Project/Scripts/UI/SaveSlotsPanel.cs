@@ -7,7 +7,7 @@ public class SaveSlotsPanel : MonoBehaviour
 {
     public TMP_Text title;
     public SlotCard[] cards;
-    public GameObject overwritePopup;   
+    public GameObject overwritePopup;
     [Header("Game")]
     public string gameSceneName = "House";
 
@@ -47,7 +47,7 @@ public class SaveSlotsPanel : MonoBehaviour
 
                 cards[i].SetFilled(
                     d.stageName,
-                    "Week " + d.week + "  |  Suspicion " + d.suspicion + "%",
+                    "Week " + d.week,
                     "Playtime " + hours + "h" + minutes.ToString("00") + "m  |  Saved " + d.savedAt);
                 button.interactable = true;
             }

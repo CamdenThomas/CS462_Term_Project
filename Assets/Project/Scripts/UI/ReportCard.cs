@@ -112,9 +112,8 @@ public class ReportCard : MonoBehaviour
 #if UNITY_EDITOR
         if (k.tKey.wasPressedThisFrame && !IsOpen)
         {
-            Show(new[] { "TRAIT 1", "TRAIT 2", "TRAIT 3", "TRAIT 4" },
-                 new[] { "A", "B", "C", "A" },
-                 "Test comment from the parents.");
+               Show(new[] { "GRADES", "CREATIVITY", "COMMUNICATION", "DISCIPLINE", "FAMILY TRUST", "BROTHER BOND" },
+                new[] { "A", "B", "C", "A", "B", "D" },"Test comment from the parents.");
         }
 #endif
     }
