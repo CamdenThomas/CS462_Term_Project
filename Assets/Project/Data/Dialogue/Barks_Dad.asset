@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6efa5d80016466398acb2099086b35f, type: 3}
+  m_Name: Barks_Dad
+  m_EditorClassIdentifier: TroUble.Data::TroUble.Data.BarkSet
+  entries:
+  - trigger: 0
+    lines:
+    - "Hm."
+    - "Somebody up?"
+  - trigger: 1
+    lines:
+    - "I can hear you, bud."
+  - trigger: 2
+    lines:
+    - "Don't make me get up."
+  - trigger: 3
+    lines:
+    - "Hand it over."
+    - "Nope. Nice try."
+  - trigger: 4
+    lines:
+    - "Step three. Every time."
+  - trigger: 5
+    lines:
+    - "I was a kid too, you know."
+  - trigger: 6
+    lines:
+    - "Your brother says hi."
+  - trigger: 7
+    lines:
+    - "{first}. Living room."
+  - trigger: 8
+    lines:
+    - "Why is the Wi-Fi down AGAIN?"
+    - "Who took the remote?"
+  - trigger: 9
+    lines:
+    - "Okay, that's not an accident."
+  - trigger: 10
+    lines:
+    - "Come on out of the closet, champ."
+  - trigger: 11
+    lines:
+    - "Other people live here!"
+  - trigger: 12
+    lines:
+    - "Look at that, a miracle."
+  - trigger: 13
+    lines:
+    - "Your mother's going to ask about the trash."
+  - trigger: 14
+    lines:
+    - "Bed. Now."
+    - "Phones off, kiddo."

@@ -1,4 +1,5 @@
 using UnityEngine;
+using TroUble.Data;
 
 namespace TroUble.Interaction {
     /// <summary>
@@ -12,6 +13,8 @@ namespace TroUble.Interaction {
         [SerializeField] private string exitPrompt = "Climb out";
         [SerializeField] private float holdTime = 0f;
         [SerializeField] private float maxHideTime = 0f;    // 0 = stay as long as you like
+        [SerializeField] private SfxCue enterSound;     // optional: vent scrape, closet rustle
+        [SerializeField] private SfxCue exitSound;
 
         private IInteractor occupant;
         private float timer;
@@ -28,6 +31,7 @@ namespace TroUble.Interaction {
             occupant = who;
             timer = 0f;
             who.SetHidden( true, viewPoint );
+            if ( enterSound != null ) { enterSound.PlayAt( transform.position ); }
         }
 
         private void Update() {
@@ -40,6 +44,7 @@ namespace TroUble.Interaction {
             IInteractor who = occupant;
             occupant = null;
             who.SetHidden( false, exitPoint );
+            if ( exitSound != null ) { exitSound.PlayAt( transform.position ); }
         }
     }
 }

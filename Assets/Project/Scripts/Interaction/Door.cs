@@ -1,4 +1,5 @@
 using UnityEngine;
+using TroUble.Data;
 
 namespace TroUble.Interaction {
     /// <summary>
@@ -16,6 +17,10 @@ namespace TroUble.Interaction {
         [SerializeField] private bool isLocked;
         [Tooltip( "Start a closed door partly open (left ajar). It still counts as closed: using it swings it the rest of the way open." )]
         [SerializeField, Range( 0f, 1f )] private float startAjar = 0f;
+
+        [Header( "Sound (optional)" )]
+        [SerializeField] private SfxCue openSound;
+        [SerializeField] private SfxCue closeSound;
 
         private Quaternion closedRotation;
         private float swing;    // 0 = closed, 1 = fully open
@@ -51,6 +56,8 @@ namespace TroUble.Interaction {
         public void Interact( IInteractor who ) {
             isOpen = !isOpen;
             restSwing = 0f;
+            SfxCue cue = isOpen ? openSound : closeSound;
+            if ( cue != null ) { cue.PlayAt( hinge.position ); }
         }
 
         public void SetLocked( bool locked ) { isLocked = locked; }

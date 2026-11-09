@@ -7,6 +7,7 @@ namespace TroUble.Interaction {
     /// </summary>
     public class ItemPickup : MonoBehaviour, IInteractable {
         [SerializeField] private ItemData item;
+        [SerializeField] private SfxCue pickupSound;    // optional
 
         private bool collected;
 
@@ -19,6 +20,7 @@ namespace TroUble.Interaction {
             // Add returns false when the holder is full, and then the item stays where it is.
             if ( !who.Items.Add( item ) ) { return; }
             collected = true;
+            if ( pickupSound != null ) { pickupSound.PlayAt( transform.position ); }
             gameObject.SetActive( false );
         }
     }

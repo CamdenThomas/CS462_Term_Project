@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6efa5d80016466398acb2099086b35f, type: 3}
+  m_Name: Barks_Brother_Ally
+  m_EditorClassIdentifier: TroUble.Data::TroUble.Data.BarkSet
+  entries:
+  - trigger: 15
+    lines:
+    - "What do you need, gremlin?"
+  - trigger: 16
+    lines:
+    - "Watch this. MOM, I THINK I BROKE MY ARM."
+  - trigger: 17
+    lines:
+    - "Lockbox code is your birthday. Embarrassing."
+  - trigger: 18
+    lines:
+    - "That was me. Sorry, Mom."
+  - trigger: 21
+    lines:
+    - "...Did you take my candy?"
