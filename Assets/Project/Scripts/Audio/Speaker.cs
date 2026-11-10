@@ -15,9 +15,9 @@ namespace TroUble.Audio {
     /// </summary>
     public class Speaker : MonoBehaviour {
         // The player's name for {first} {middle} {last} in lines. Set these from a name-entry screen later.
-        public static string FirstName = "Sam";
-        public static string MiddleName = "James";
-        public static string LastName = "Carter";
+        public static string FirstName = "Boy";
+        public static string MiddleName = "";
+        public static string LastName = "";
 
         private static readonly List<Speaker> all = new();
 

@@ -15,57 +15,57 @@ MonoBehaviour:
   entries:
   - trigger: 0
     lines:
-    - "...{first}?"
-    - "What was that?"
-    - "Hm?"
+    - ...{first}?
+    - What was that?
+    - Hm?
   - trigger: 1
     lines:
-    - "{first}. What are you doing."
-    - "{first}, I see you."
+    - '{first}. What are you doing.'
+    - '{first}, I see you.'
   - trigger: 2
     lines:
-    - "{first} {middle}."
-    - "{first} {middle}, don't you dare."
+    - '{first}.'
+    - Don't you dare {first}
   - trigger: 3
     lines:
-    - "{first} {middle} {last}. Kitchen. Now."
-    - "Put. It. Back."
+    - Kitchen. Now.
+    - Put. It. Back.
   - trigger: 4
     lines:
-    - "Those stairs creak, genius."
-    - "I can hear you, you know."
+    - Those stairs creak, genius.
+    - I can hear you, you know.
   - trigger: 5
     lines:
-    - "Under the floorboard? Really?"
-    - "And what is THIS?"
+    - Under the floorboard? Really?
+    - And what is THIS?
   - trigger: 6
     lines:
-    - "Your brother told me everything."
+    - Your brother told me everything.
   - trigger: 7
     lines:
-    - "{first} {middle} {last}!"
+    - '{first}!'
   - trigger: 8
     lines:
-    - "Who left the tub running?!"
-    - "Who broke this cup?!"
-    - "Why are there SHOES in the dryer?"
+    - Who left the tub running?!
+    - Who broke this cup?!
+    - Why are there SHOES in the dryer?
   - trigger: 9
     lines:
-    - "Twice in one day. Kids! Where are you?"
+    - Twice in one day. Kids! Where are you?
   - trigger: 10
     lines:
-    - "I saw you go in there."
+    - I saw you go in there.
   - trigger: 11
     lines:
-    - "You've been in there twenty minutes."
+    - You've been in there twenty minutes.
   - trigger: 12
     lines:
-    - "Thank you, sweetie."
-    - "See? Was that so hard?"
+    - Thank you, sweetie.
+    - See? Was that so hard?
   - trigger: 13
     lines:
-    - "The dishes didn't wash themselves."
+    - The dishes didn't wash themselves.
   - trigger: 14
     lines:
-    - "Lights out means lights out."
-    - "Night, sweetie."
+    - Lights out means lights out.
+    - Night, sweetie.
