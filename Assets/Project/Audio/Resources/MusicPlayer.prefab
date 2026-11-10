@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5718293746518293001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5718293746518293002}
+  - component: {fileID: 5718293746518293003}
+  m_Layer: 0
+  m_Name: MusicPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5718293746518293002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5718293746518293001}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5718293746518293003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5718293746518293001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f0d465eb24e4cd48321ca5885a8cba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TroUble.Audio::TroUble.Audio.MusicPlayer
+  output: {fileID: 2466708127617609942, guid: 2253acc95ab0ce1478de8a7d87f0e1f4, type: 2}
+  volume: 0.7
+  menuScene: MainMenu
+  menu: {fileID: 8300000, guid: 0845c2ef2f9245758f0be213ea502f22, type: 3}
+  reportCard: {fileID: 8300000, guid: 7b89000a17e24f9c96dacb14bc45a72e, type: 3}
+  stages:
+  - Calm: {fileID: 8300000, guid: 022d1b283b1f4909bb1eec34f1b4c088, type: 3}
+    Tension: {fileID: 8300000, guid: 511039d372224a01a2a5ab6e0471a9b4, type: 3}
+    Chase: {fileID: 8300000, guid: b7f9148295b442ffb62e596949b42229, type: 3}
+  - Calm: {fileID: 8300000, guid: ed329393f3144e14a66de039dbab74cb, type: 3}
+    Tension: {fileID: 8300000, guid: a841f42a417646f99416eca4c04b9618, type: 3}
+    Chase: {fileID: 8300000, guid: 0cf379266af84d95bef84e71b94d8849, type: 3}
+  - Calm: {fileID: 8300000, guid: 19600bdc8fab40b9aa9e38b0a5ff79cb, type: 3}
+    Tension: {fileID: 8300000, guid: 5099107f748b4308890a4c6aa0e49797, type: 3}
+    Chase: {fileID: 8300000, guid: a91af963042a445e99baba27ec11ebb8, type: 3}
+  noticed: {fileID: 8300000, guid: a8f756f9a2ea48788674d58f91d4b9a8, type: 3}
+  spotted: {fileID: 8300000, guid: 7031b534c2bf4e84956714da22f43257, type: 3}
+  caught: {fileID: 8300000, guid: f0db6d988c14459b91929e7015d2edaa, type: 3}
+  victory: {fileID: 8300000, guid: dca2d5afc08a46b899ece980a7d5dcd6, type: 3}
+  player: {fileID: 11400000, guid: aea1ee3f0921148c5bbe085adf457964, type: 2}
+  playerDetected: {fileID: 11400000, guid: 73f728851c0b148c5a2a3dac7d903c05, type: 2}
+  playerCaught: {fileID: 11400000, guid: ee8f3b07a96554292ab3dae3072132c1, type: 2}
+  demoWon: {fileID: 11400000, guid: 0702f27d31e304f5d8c0a6d78afe5b88, type: 2}
+  stageStarted: {fileID: 0}
+  nearRadius: 3.5
+  farRadius: 9
+  chaseHold: 4
+  hiddenCutoff: 900
