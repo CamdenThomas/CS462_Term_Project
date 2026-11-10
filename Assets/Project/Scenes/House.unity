@@ -30152,6 +30152,7 @@ MonoBehaviour:
   objective: {fileID: 926625297}
   carryingRoot: {fileID: 1669635369}
   carrying: {fileID: 609299850}
+  player: {fileID: 11400000, guid: aea1ee3f0921148c5bbe085adf457964, type: 2}
   goalGetIt: Sneak a cookie out of the kitchen cabinet.
   goalHide: Hide before Mom sees you with it. Try the vent under the stairs.
 --- !u!114 &654338899
@@ -31298,7 +31299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &682642265
 RectTransform:
   m_ObjectHideFlags: 0
@@ -54026,7 +54027,7 @@ MonoBehaviour:
   exitPoint: {fileID: 134711022}
   enterPrompt: Hide in box
   exitPrompt: Climb out
-  holdTime: 0
+  holdTime: 1
   maxHideTime: 0
 --- !u!65 &1139652716
 BoxCollider:
@@ -81413,9 +81414,9 @@ RectTransform:
   - {fileID: 609299852}
   m_Father: {fileID: 654338896}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 210, y: 64}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 210, y: -64}
   m_SizeDelta: {x: 360, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1669748154

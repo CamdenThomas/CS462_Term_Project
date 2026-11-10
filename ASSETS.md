@@ -31,32 +31,38 @@ Unity gives every file a permanent ID, stored in its `.meta` file. Prefabs and m
 
 ## One-time setup
 
-1. Open the shared `TroUble` folder in Google Drive and choose **Organize → Add shortcut → My Drive**, so it shows up at `My Drive/TroUble`.
-2. Install [rclone](https://rclone.org/install/) (Windows, Mac, and Linux).
-3. Run `rclone config`: create a new remote named **`gdrive`**, choose type **Google Drive**, and accept the defaults. A browser window opens to log in.
-4. Do your first pull (below) **before** opening the project in Unity.
+1. Make sure you can open the shared `TroUble` folder in Google Drive (ask Camden to share it with you).
+2. In the repo folder, run:
+   ```bash
+   ./pull --setup
+   ```
+   It installs [rclone](https://rclone.org/install/) if you don't have it (Homebrew on Mac, winget on Windows; on Windows run it from Git Bash), opens a browser tab to sign in to Google (read-only access), installs a git hook, and does your first Drive pull.
+3. Do this **before** opening the project in Unity.
 
 No rclone? You can download and upload `DriveAssets` in the Drive website instead. Just keep the folder structure identical and always include the `.meta` files.
 
 ## Every time you sit down to work
 
+Close Unity, then:
+
 ```bash
-git pull
-rclone copy "gdrive:TroUble/DriveAssets" Assets/Project/DriveAssets --update -P
+./pull
 ```
 
-Then open Unity. **Always pull Drive before opening Unity.** If Unity opens while a file is missing, things show up pink or empty until you pull and reopen.
+That runs `git pull` and then copies anything new from Drive `TroUble/DriveAssets` into `Assets/Project/DriveAssets`. After `--setup`, a plain `git pull` also pulls Drive (through the git hook) whenever it brings in new commits; `./pull --drive` pulls only the Drive files.
+
+Then open Unity. **Always pull Drive with Unity closed.** If Unity is open it can import a picture before its `.meta` arrives, give it a new ID, and every prefab using it loses the link. `./pull` refuses to pull Drive while Unity has the project open.
 
 ## Adding or changing a big file
 
 1. Put it in the right `Assets/Project/DriveAssets/` subfolder **with Unity open**, so Unity creates its `.meta`.
 2. Set its import settings in Unity (scale, compression, and so on). Those settings live in the `.meta` file.
-3. Upload it **and its `.meta`**:
+3. Upload it **and its `.meta`** to the matching folder under `TroUble/DriveAssets/` in the Drive website (drag both files in). The `./pull --setup` connection is read-only, so it can't upload. If you'd rather upload from the terminal, make a second rclone remote with full access (`rclone config create gdrive-rw drive`) and run:
    ```bash
-   rclone copy Assets/Project/DriveAssets "gdrive:TroUble/DriveAssets" --update -P
+   rclone copy Assets/Project/DriveAssets gdrive-rw: --drive-root-folder-id 1qDHs95jvhcOIe_E5PsNsAK7PLCkFnecP --update -P
    ```
 4. **Then** commit and push the prefab, material, or scene that uses it.
-5. Tell everyone in chat: "New in Drive: `Models/Couch.fbx`. Pull Drive."
+5. Tell everyone in chat: "New in Drive: `Models/Couch.fbx`. Run ./pull."
 
 Uploading to Drive **before** pushing to Git means nobody pulls a prefab whose model doesn't exist yet.
 

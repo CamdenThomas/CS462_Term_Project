@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+# Pull everything for TroUble: code from Git, then the big files (art, music, sounds) from the shared
+# Google Drive folder TroUble/DriveAssets into Assets/Project/DriveAssets. See ASSETS.md.
+#
+#   ./pull           git pull, then pull the Drive files
+#   ./pull --drive   only pull the Drive files
+#   ./pull --setup   first time on a computer: install rclone, sign in to Google, install the git hook
+#                    (after this, a plain `git pull` also pulls the Drive files)
+#
+# Close Unity before pulling. If Unity is open it can import a picture before its .meta file arrives,
+# give it a new ID, and every prefab that uses it loses the link.
+
+set -euo pipefail
+cd "$(dirname "$0")"
+
+REMOTE="${TROUBLE_DRIVE_REMOTE:-gdrive}"
+# The Drive folder TroUble/DriveAssets, by ID, so it works for teammates without a shortcut in My Drive.
+DRIVE_ASSETS_ID="1qDHs95jvhcOIe_E5PsNsAK7PLCkFnecP"
+DEST="Assets/Project/DriveAssets"
+
+unity_is_open() {
+    pgrep -fi "Unity.app/Contents/MacOS/Unity .*-projectpath $(pwd)( |$)" >/dev/null 2>&1 \
+        || pgrep -fi "Unity.exe.*-projectpath.*$(basename "$(pwd)")" >/dev/null 2>&1
+}
+
+drive_pull() {
+    if ! command -v rclone >/dev/null 2>&1; then
+        echo "pull: rclone is not installed. Run ./pull --setup first." >&2
+        return 1
+    fi
+    if ! rclone listremotes | grep -qx "${REMOTE}:"; then
+        echo "pull: no rclone remote called '${REMOTE}'. Run ./pull --setup first." >&2
+        return 1
+    fi
+    if unity_is_open; then
+        echo "pull: Unity has this project open, so the Drive files were NOT pulled." >&2
+        echo "      Close Unity, then run: ./pull --drive" >&2
+        return 1
+    fi
+    echo "Pulling Drive files into ${DEST} ..."
+    mkdir -p "$DEST"
+    local progress=()
+    [ -t 1 ] && progress=(--progress --stats-one-line)
+    rclone copy "${REMOTE}:" "$DEST" --drive-root-folder-id "$DRIVE_ASSETS_ID" \
+        --update --exclude ".DS_Store" --log-level ERROR "${progress[@]+"${progress[@]}"}"
+    echo "Drive files up to date."
+}
+
+install_hooks() {
+    local hooks
+    hooks="$(git rev-parse --git-path hooks)"
+    mkdir -p "$hooks"
+    # post-merge runs after `git pull` (merge or fast-forward); post-rewrite after `git pull --rebase`.
+    for name in post-merge post-rewrite; do
+        cat > "$hooks/$name" <<'HOOK'
+#!/bin/sh
+# Installed by ./pull --setup: after a git pull, also pull the Google Drive files.
+[ -n "${TROUBLE_PULL_RUNNING:-}" ] && exit 0      # ./pull does the Drive part itself
+[ "$(basename "$0")" = "post-rewrite" ] && [ "$1" != "rebase" ] && exit 0
+./pull --drive || echo "(Drive files not pulled; see the message above.)"
+exit 0
+HOOK
+        chmod +x "$hooks/$name"
+    done
+    echo "Git hooks installed: a plain 'git pull' now pulls the Drive files too."
+}
+
+setup() {
+    if ! command -v rclone >/dev/null 2>&1; then
+        if command -v brew >/dev/null 2>&1; then
+            brew install rclone
+        elif command -v winget >/dev/null 2>&1; then
+            winget install Rclone.Rclone
+        else
+            echo "Install rclone from https://rclone.org/install/ and run ./pull --setup again." >&2
+            exit 1
+        fi
+    fi
+    if ! rclone listremotes | grep -qx "${REMOTE}:"; then
+        echo "A browser tab will open: sign in with the Google account that can see the TroUble folder, then click Allow."
+        rclone config create "$REMOTE" drive scope=drive.readonly
+    fi
+    install_hooks
+    drive_pull
+}
+
+case "${1:-}" in
+    --setup) setup ;;
+    --drive) drive_pull ;;
+    "") TROUBLE_PULL_RUNNING=1 git pull; drive_pull ;;
+    *) echo "usage: ./pull [--drive | --setup]" >&2; exit 2 ;;
+esac
