@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+# Push everything for TroUble: the big files (art, music, sounds) up to the shared Google Drive folder
+# TroUble/DriveAssets, then your commits to GitHub. The opposite of ./pull. See ASSETS.md.
+#
+#   ./push           upload new/changed Drive files, then git push
+#   ./push --drive   only upload the Drive files
+#   ./push --git     only git push
+#   ./push --check   show what would be uploaded to Drive, change nothing
+#   ./push --setup   first time on a computer: sign in to Google with upload access
+#
+# It never deletes or renames anything on Drive. It only uploads files that are new on your computer, or newer
+# than the copy on Drive. If a teammate changed a file on Drive after you did, their copy wins and yours is skipped.
+
+set -euo pipefail
+cd "$(dirname "$0")"
+
+# A separate connection from ./pull's read-only one, so pulling can never write by accident.
+REMOTE="${TROUBLE_DRIVE_PUSH_REMOTE:-gdrive-rw}"
+DRIVE_ASSETS_ID="1qDHs95jvhcOIe_E5PsNsAK7PLCkFnecP"     # TroUble/DriveAssets, same folder ./pull reads
+SRC="Assets/Project/DriveAssets"
+FILTERS=(--exclude ".DS_Store" --exclude "*.blend" --exclude "*.blend1" --exclude "*.tmp")
+
+unity_is_open() {
+    pgrep -fi "Unity.app/Contents/MacOS/Unity .*-projectpath $(pwd)( |$)" >/dev/null 2>&1 \
+        || pgrep -fi "Unity.exe.*-projectpath.*$(basename "$(pwd)")" >/dev/null 2>&1
+}
+
+need_remote() {
+    if ! command -v rclone >/dev/null 2>&1; then
+        echo "push: rclone is not installed. Run ./pull --setup first, then ./push --setup." >&2
+        exit 1
+    fi
+    if ! rclone listremotes | grep -qx "${REMOTE}:"; then
+        echo "push: no upload connection yet. Run ./push --setup (one time)." >&2
+        exit 1
+    fi
+}
+
+missing_metas() {
+    # Every Unity file needs its .meta on Drive too, or teammates' prefabs lose the link.
+    find "$SRC" -type f ! -name "*.meta" ! -name ".DS_Store" ! -name "*.blend" ! -name "*.blend1" \
+        | while read -r f; do [ -f "$f.meta" ] || echo "  $f"; done
+}
+
+drive_push() {
+    need_remote
+    if unity_is_open; then
+        echo "push: heads up, Unity has the project open. Save first so every .meta file is written." >&2
+    fi
+    local missing; missing="$(missing_metas)"
+    if [ -n "$missing" ]; then
+        echo "push: these files have no .meta yet. Open Unity once so it makes them, then push again:" >&2
+        echo "$missing" >&2
+        exit 1
+    fi
+    echo "Uploading new and changed files from ${SRC} to Drive (nothing on Drive is deleted) ..."
+    local progress=()
+    [ -t 1 ] && progress=(--progress --stats-one-line)
+    rclone copy "$SRC" "${REMOTE}:" --drive-root-folder-id "$DRIVE_ASSETS_ID" \
+        --update "${FILTERS[@]}" --log-level NOTICE "${progress[@]+"${progress[@]}"}"
+    echo "Drive is up to date."
+}
+
+drive_check() {
+    need_remote
+    echo "Files that ./push would upload (new here, or newer here than on Drive):"
+    rclone copy "$SRC" "${REMOTE}:" --drive-root-folder-id "$DRIVE_ASSETS_ID" \
+        --update "${FILTERS[@]}" --dry-run 2>&1 | sed -n 's/.*NOTICE: \(.*\): Skipped copy as --dry-run is set.*/  \1/p'
+    echo "(Nothing was uploaded.)"
+}
+
+git_push() {
+    if [ -n "$(git status --porcelain)" ]; then
+        echo "push: note, you have uncommitted changes. Only commits go to GitHub; commit first if you want them included."
+    fi
+    git push
+}
+
+setup() {
+    if ! command -v rclone >/dev/null 2>&1; then
+        echo "Run ./pull --setup first (it installs rclone), then ./push --setup." >&2
+        exit 1
+    fi
+    if rclone listremotes | grep -qx "${REMOTE}:"; then
+        echo "The upload connection '${REMOTE}' already exists. Nothing to do."
+        return
+    fi
+    echo "A browser tab will open: sign in with the Google account that can EDIT the TroUble folder, then click Allow."
+    echo "(This gives rclone upload access. ./pull keeps using its separate read-only connection.)"
+    rclone config create "$REMOTE" drive scope=drive
+    echo "Done. Try: ./push --check"
+}
+
+case "${1:-}" in
+    --setup) setup ;;
+    --drive) drive_push ;;
+    --git) git_push ;;
+    --check) drive_check ;;
+    "") drive_push; git_push ;;
+    *) echo "usage: ./push [--drive | --git | --check | --setup]" >&2; exit 2 ;;
+esac

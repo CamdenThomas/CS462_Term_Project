@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,6 +25,7 @@ namespace TroUble.UI {
         [SerializeField] private float dockedSize = 62f;
 
         private HUD dockedIn;
+        private readonly Dictionary<Transform, DetectionEvent> watching = new();
 
         private void OnEnable() {
             playerDetected.Subscribe( OnDetected );
@@ -47,7 +49,17 @@ namespace TroUble.UI {
             dockedIn = hud;
         }
 
-        private void OnDetected( DetectionEvent e ) {
+        // With two parents, one calming down must not hide the other one noticing you, so remember what each watcher
+        // last reported and always show the most aware of them.
+        private void OnDetected( DetectionEvent latest ) {
+            if ( latest.Watcher != null ) {
+                if ( latest.Level == DetectionLevel.None ) { watching.Remove( latest.Watcher ); } else { watching[latest.Watcher] = latest; }
+            }
+            DetectionEvent e = latest.Watcher != null ? default : latest;
+            foreach ( var pair in watching ) {
+                if ( pair.Key != null && pair.Value.Awareness > e.Awareness ) { e = pair.Value; }
+            }
+
             if ( HUD.Instance != null ) { HUD.Instance.SetSuspicion( e.Level == DetectionLevel.None ? 0f : e.Awareness * 100f ); }
             indicatorRoot.SetActive( e.Level != DetectionLevel.None );
             if ( e.Level == DetectionLevel.None ) { return; }

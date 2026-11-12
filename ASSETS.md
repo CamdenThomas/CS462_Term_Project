@@ -57,20 +57,19 @@ Then open Unity. **Always pull Drive with Unity closed.** If Unity is open it ca
 
 1. Put it in the right `Assets/Project/DriveAssets/` subfolder **with Unity open**, so Unity creates its `.meta`.
 2. Set its import settings in Unity (scale, compression, and so on). Those settings live in the `.meta` file.
-3. Upload it **and its `.meta`** to the matching folder under `TroUble/DriveAssets/` in the Drive website (drag both files in). The `./pull --setup` connection is read-only, so it can't upload. If you'd rather upload from the terminal, make a second rclone remote with full access (`rclone config create gdrive-rw drive`) and run:
-   ```bash
-   rclone copy Assets/Project/DriveAssets gdrive-rw: --drive-root-folder-id 1qDHs95jvhcOIe_E5PsNsAK7PLCkFnecP --update -P
-   ```
-4. **Then** commit and push the prefab, material, or scene that uses it.
+3. Commit the prefab, material, or scene that uses it.
+4. Run `./push`. It uploads every new or changed file in `DriveAssets` **with its `.meta`** to Drive, then runs `git push`. It never deletes anything on Drive, and it skips any file where the Drive copy is newer than yours. `./push --check` lists what would be uploaded without uploading.
 5. Tell everyone in chat: "New in Drive: `Models/Couch.fbx`. Run ./pull."
 
-Uploading to Drive **before** pushing to Git means nobody pulls a prefab whose model doesn't exist yet.
+`./push` uploads to Drive **before** pushing to Git, so nobody pulls a prefab whose model doesn't exist yet. It refuses to upload if a file has no `.meta` (open Unity once so it makes one).
+
+**First time:** `./push --setup` opens a browser tab to sign in to Google again, this time with upload access (you need edit access to the `TroUble` folder). It makes a separate connection called `gdrive-rw`; `./pull` keeps its read-only one. No rclone? Drag the files **and their `.meta` files** into the matching Drive folder in the website instead.
 
 ## Rules
 
 - **Always upload the file and its `.meta` together.** A file without its `.meta` breaks everyone else's references.
 - **Don't edit someone else's file in place.** Ask first, or save a new version (`Couch_v2.fbx`). Drive makes confusing "conflict" copies otherwise.
-- **Rename or move files only inside Unity,** then upload and delete the old copy in Drive. `rclone copy` never deletes, so old files come back on the next pull unless you delete them in Drive.
+- **Rename or move files only inside Unity,** then upload and delete the old copy in Drive. `./pull` and `./push` never delete, so old files come back on the next pull unless you delete them in Drive.
 - **To delete a file,** delete it (and its `.meta`) in Unity **and** in Drive.
 - **Source files stay out of Unity:** `.blend` and `.psd` go to `TroUble/Source/`, and you export `.fbx` and `.png` into `DriveAssets`.
 - **If Git says a `.png` or `.wav` is ignored** somewhere outside `DriveAssets`, that's the safety net. Move it into `DriveAssets/`.
